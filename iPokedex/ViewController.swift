@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var pokemonArray: [Pokemon] = []
     var pokemonTableIdentifier = "pokemonTableIdentifier"
-    let mainURL = "https://pokeapi.co/api/v2/pokemon?limit=500"
+    let mainURL = "https://pokeapi.co/api/v2/pokemon" //?limit=500"
     
 
     @IBOutlet weak var tableView: UITableView!
@@ -107,13 +107,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rowValue = pokemonArray[indexPath.row]
-        let message = "Name: \(rowValue.name!) Height: \(rowValue.height!) Weight: \(rowValue.weight!)"
-        
-        let controller = UIAlertController(title: "\(rowValue.name!)", message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Close", style: .default, handler: nil)
-        controller.addAction(action)
-        present(controller, animated: true, completion: nil)
+        let selectedPokemon = pokemonArray[indexPath.row]
+        let viewController = PokemonViewController()
+        viewController.pokemon = selectedPokemon
+        viewController.mainViewController = self
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 
